@@ -26,7 +26,7 @@ type Message struct {
 	} `json:"at"`
 }
 
-func Send(prefix sttring, tokens, atUsers []string, notifyAll bool, text string) {
+func Send(prefix string, tokens, atUsers []string, notifyAll bool, text string) {
 	logFile, _ := os.OpenFile(fileName, os.O_RDWR|os.O_CREATE|os.O_APPEND, 0766)
 	defer logFile.Close()
 	Log := log.New(logFile, "[Info]", log.Ldate|log.Ltime) // log.Ldate|log.Ltime|log.Lshortfile
