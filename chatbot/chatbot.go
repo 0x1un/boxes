@@ -1,11 +1,12 @@
 package chatbot
 
 import (
-	network "github.com/0x1un/boxes/component/net"
 	"bytes"
 	"encoding/json"
 	"log"
 	"os"
+
+	network "github.com/0x1un/boxes/component/net"
 )
 
 const (
@@ -25,14 +26,14 @@ type Message struct {
 	} `json:"at"`
 }
 
-func Send(tokens, atUsers []string, notifyAll bool, text string) {
+func Send(prefix sttring, tokens, atUsers []string, notifyAll bool, text string) {
 	logFile, _ := os.OpenFile(fileName, os.O_RDWR|os.O_CREATE|os.O_APPEND, 0766)
 	defer logFile.Close()
 	Log := log.New(logFile, "[Info]", log.Ldate|log.Ltime) // log.Ldate|log.Ltime|log.Lshortfile
 	Log.Println("开始发送消息!")
 	msg := new(Message)
 	msg.MsgType = "markdown"
-	msg.Markdown.Title = "[钉钉红包]恭喜发财 大吉大利!"
+	msg.Markdown.Title = prefix
 	msg.Markdown.Text = text
 	msg.At.AtMobiles = atUsers
 	msg.At.IsAtAll = notifyAll
