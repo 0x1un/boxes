@@ -29,7 +29,7 @@ type FormComponentValuesVo struct {
 
 type CreateProcessInstanceResp struct {
 	BaseResp
-	ProcessInstanceId string `json:"process_instance_id"`
+	ProcessInstanceId string `json:"process_instance_id" gorm:"column:process_id"`
 }
 
 type BaseResp struct {
