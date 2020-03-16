@@ -55,21 +55,21 @@ type Tasks []struct {
 }
 
 type ProcessInstance struct {
-	Title                      string `json:"title"`
-	CreateTime                 string `json:"create_time"`
-	FinishTime                 string `json:"finish_time"`
-	OriginatorUserid           string `json:"originator_userid"`
-	OriginatorDeptID           string `json:"originator_dept_id"`
-	Status                     string `json:"status"`
-	CcUserids                  string `json:"cc_userids"`
-	Result                     string `json:"result"`
-	BusinessID                 string `json:"business_id"`
-	OriginatorDeptName         string `json:"originator_dept_name"`
-	BizAction                  string `json:"biz_action"`
-	FormComponentValuesVo      `json:"form_component_values"`
-	OperationRecords           `json:"operation_records"`
-	Tasks                      `json:"tasks"`
-	AttachedProcessInstanceIds []interface{} `json:"attached_process_instance_ids"`
+	Title                      string                `json:"title"`
+	CreateTime                 string                `json:"create_time"`
+	FinishTime                 string                `json:"finish_time"`
+	OriginatorUserid           string                `json:"originator_userid"`
+	OriginatorDeptID           string                `json:"originator_dept_id"`
+	Status                     string                `json:"status"`
+	CcUserids                  string                `json:"cc_userids"`
+	Result                     string                `json:"result"`
+	BusinessID                 string                `json:"business_id"`
+	OriginatorDeptName         string                `json:"originator_dept_name"`
+	BizAction                  string                `json:"biz_action"`
+	FormComponentValVo         FormComponentValuesVo `json:"form_component_values"`
+	OperationRecord            OperationRecords      `json:"operation_records"`
+	Task                       Tasks                 `json:"tasks"`
+	AttachedProcessInstanceIds []interface{}         `json:"attached_process_instance_ids"`
 }
 
 type ProcessInstanceDetail struct {
