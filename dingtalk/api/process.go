@@ -54,9 +54,7 @@ func (self *DingTalkClient) SendProcess(formComponent FormValues) (*CreateProces
 }
 
 func (self *DingTalkClient) GetProcessInstanceDetail(processid string) (*ProcessInstanceDetail, error) {
-	var (
-		processInstance *ProcessInstanceDetail
-	)
+	processInstance := new(ProcessInstanceDetail)
 	urlParam := make(url.Values)
 	params := make(misc.Data)
 	urlParam.Set("access_token", self.AccessToken)
