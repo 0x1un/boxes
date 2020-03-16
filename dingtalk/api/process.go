@@ -3,8 +3,10 @@ package api
 import (
 	"bytes"
 	"encoding/json"
+	"net/url"
 
 	network "github.com/0x1un/boxes/component/net"
+	"github.com/0x1un/boxes/dingtalk/misc"
 )
 
 // Methods
@@ -49,4 +51,22 @@ func (self *DingTalkClient) SendProcess(formComponent FormValues) (*CreateProces
 		return nil, err
 	}
 	return processResp, nil
+}
+
+func (self *DingTalkClient) GetProcessInstanceDetail(processid string) (*ProcessInstanceDetail, error) {
+	var (
+		processInstance *ProcessInstanceDetail
+	)
+	urlParam := make(url.Values)
+	params := make(misc.Data)
+	urlParam.Set("access_token", self.AccessToken)
+	params.Set("process_instance_id", processid)
+	data, err := self.Post("topapi/processinstance/get", urlParam, params)
+	if err != nil {
+		return nil, err
+	}
+	if err := json.Unmarshal(data, processInstance); err != nil {
+		return nil, err
+	}
+	return processInstance, nil
 }
