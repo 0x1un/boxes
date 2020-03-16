@@ -74,5 +74,5 @@ type ProcessInstance struct {
 
 type ProcessInstanceDetail struct {
 	BaseResp
-	ProcessInstance `json:"process_instance"`
+	ProcessIst ProcessInstance `json:"process_instance"`
 }
