@@ -37,42 +37,47 @@ type BaseResp struct {
 	ErrMsg  string `json:"errmsg"`
 }
 
-type OperationRecords []struct {
-	Userid          string `json:"userid"`
+type FormComponentValue struct {
+	ComponentType string `json:"component_type"`
+	ID            string `json:"id"`
+	Value         string `json:"value"`
+	Name          string `json:"name,omitempty"`
+	ExtValue      string `json:"ext_value,omitempty"`
+}
+
+type Task struct {
+	TaskStatus string `json:"task_status"`
+	CreateTime string `json:"create_time"`
+	TaskResult string `json:"task_result"`
+	Userid     string `json:"userid"`
+	Taskid     string `json:"taskid"`
+	URL        string `json:"url"`
+}
+
+type OperationRecord struct {
 	Date            string `json:"date"`
 	OperationType   string `json:"operation_type"`
 	OperationResult string `json:"operation_result"`
-	Remark          string `json:"remark"`
-}
-
-type Tasks []struct {
-	Userid     string `json:"userid"`
-	TaskStatus string `json:"task_status"`
-	TaskResult string `json:"task_result"`
-	CreateTime string `json:"create_time"`
-	FinishTime string `json:"finish_time"`
-	Taskid     string `json:"taskid"`
+	Userid          string `json:"userid"`
 }
 
 type ProcessInstance struct {
-	Title                      string                `json:"title"`
-	CreateTime                 string                `json:"create_time"`
-	FinishTime                 string                `json:"finish_time"`
-	OriginatorUserid           string                `json:"originator_userid"`
-	OriginatorDeptID           string                `json:"originator_dept_id"`
-	Status                     string                `json:"status"`
-	CcUserids                  string                `json:"cc_userids"`
-	Result                     string                `json:"result"`
-	BusinessID                 string                `json:"business_id"`
-	OriginatorDeptName         string                `json:"originator_dept_name"`
-	BizAction                  string                `json:"biz_action"`
-	FormComponentValVo         FormComponentValuesVo `json:"form_component_values"`
-	OperationRecord            OperationRecords      `json:"operation_records"`
-	Task                       Tasks                 `json:"tasks"`
-	AttachedProcessInstanceIds []interface{}         `json:"attached_process_instance_ids"`
+	Result                     string               `json:"result"`
+	OriginatorDeptID           string               `json:"originator_dept_id"`
+	CreateTime                 string               `json:"create_time"`
+	OriginatorUserid           string               `json:"originator_userid"`
+	Title                      string               `json:"title"`
+	BusinessID                 string               `json:"business_id"`
+	BizAction                  string               `json:"biz_action"`
+	Status                     string               `json:"status"`
+	OperationRecords           []OperationRecord    `json:"operation_records"`
+	FormComponentValues        []FormComponentValue `json:"form_component_values"`
+	Tasks                      []Task               `json:"tasks"`
+	AttachedProcessInstanceIds []interface{}        `json:"attached_process_instance_ids"`
 }
 
 type ProcessInstanceDetail struct {
-	BaseResp
-	ProcessIst []ProcessInstance `json:"process_instance"`
+	Errcode        int             `json:"errcode"`
+	ProcessInstanc ProcessInstance `json:"process_instance"`
+	RequestID      string          `json:"request_id"`
 }
