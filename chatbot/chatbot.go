@@ -1,16 +1,17 @@
 package chatbot
 
 import (
-	network "github.com/0x1un/boxes/component/net"
 	"bytes"
 	"encoding/json"
 	"log"
 	"os"
+
+	network "github.com/0x1un/boxes/component/net"
 )
 
 const (
-	baseURL  = `https://oapi.dingtalk.com/robot/send?access_token=`
-	fileName = "chatbot.log"
+	BASE_URL  = `https://oapi.dingtalk.com/robot/send?access_token=`
+	FILE_NAME = "/var/log/zabbix/alter/chatbot.log"
 )
 
 type Message struct {
@@ -26,11 +27,11 @@ type Message struct {
 }
 
 func Send(tokens, atUsers []string, notifyAll bool, text string) {
-	logFile, _ := os.OpenFile(fileName, os.O_RDWR|os.O_CREATE|os.O_APPEND, 0766)
+	logFile, _ := os.OpenFile(FILE_NAME, os.O_RDWR|os.O_CREATE|os.O_APPEND, 0766)
 	defer logFile.Close()
 	Log := log.New(logFile, "[Info]", log.Ldate|log.Ltime) // log.Ldate|log.Ltime|log.Lshortfile
 	Log.Println("开始发送消息!")
-	msg := new(Message)
+	msg := &Message{}
 	msg.MsgType = "markdown"
 	msg.Markdown.Title = "[钉钉红包]恭喜发财 大吉大利!"
 	msg.Markdown.Text = text
@@ -48,7 +49,7 @@ func Send(tokens, atUsers []string, notifyAll bool, text string) {
 //发送消息到钉钉
 func fillMsgAndSent(token string, msg []byte, Log *log.Logger) {
 	reader := bytes.NewReader(msg)
-	resp := network.Post(baseURL+token, reader)
+	resp := network.Post(BASE_URL+token, reader)
 	Log.SetPrefix("[Info]")
 	Log.Printf("消息发送完成,服务器返回内容：%s", string(resp))
 }
