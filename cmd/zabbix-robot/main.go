@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
@@ -43,7 +44,12 @@ func main() {
 		}
 	}
 	content = args[1]
-	chatbot.Send(config.RobotTokens, config.AtUsers, config.AtAll, content, area)
+	ct := bytes.NewBufferString(content)
+	ct.WriteString("\n\n")
+	for _, phone := range config.AtUsers {
+		ct.WriteString("@" + phone)
+	}
+	chatbot.Send(config.RobotTokens, config.AtUsers, config.AtAll, ct.String(), area)
 }
 
 func readConfig() *Config {

@@ -6,11 +6,12 @@ import (
 	"os"
 	"time"
 
-	"github.com/0x1un/boxes/cmd/attendanceRobot/db"
+	"log"
+
 	"github.com/0x1un/boxes/chatbot"
+	"github.com/0x1un/boxes/cmd/attendanceRobot/db"
 	"github.com/0x1un/boxes/component/array"
 	"github.com/0x1un/boxes/dingtalk/api"
-	"log"
 
 	"github.com/subosito/gotenv"
 )
@@ -48,7 +49,7 @@ func main() {
 	fmt.Println(result)
 	tokens = array.RemoveDuplicateElement(tokens)
 	if *robot {
-		chatbot.Send(tokens, nil, false, result)
+		chatbot.Send(tokens, nil, false, result, "")
 	}
 	results, err := client.GetShiftList("2749481918775803", 0)
 	if err != nil {

@@ -1,11 +1,12 @@
 package main
 
 import (
-	"github.com/0x1un/boxes/chatbot"
-	"github.com/0x1un/boxes/screenshot"
 	"bytes"
 	"fmt"
 	"time"
+
+	"github.com/0x1un/boxes/chatbot"
+	"github.com/0x1un/boxes/screenshot"
 )
 
 func main() {
@@ -21,7 +22,7 @@ func main() {
 	}
 	buffer.WriteString(time.Now().Format("2006-01-02 15:04:05"))
 	if screenshot.CFG.EnableRobot {
-		chatbot.Send(screenshot.CFG.RobotTokens, screenshot.CFG.RobotAtUsers, false, buffer.String())
+		chatbot.Send(screenshot.CFG.RobotTokens, screenshot.CFG.RobotAtUsers, false, buffer.String(), "网络巡检")
 	}
 	fmt.Println(buffer.String())
 }

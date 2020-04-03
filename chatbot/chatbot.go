@@ -3,6 +3,7 @@ package chatbot
 import (
 	"bytes"
 	"encoding/json"
+	"fmt"
 	"log"
 	"os"
 
@@ -41,6 +42,7 @@ func Send(tokens, atUsers []string, notifyAll bool, text, title string) {
 	if err != nil {
 		Log.Fatal(err)
 	}
+	fmt.Println(string(msgs))
 	for _, tk := range tokens {
 		fillMsgAndSent(tk, msgs, Log)
 	}
