@@ -20,7 +20,7 @@ var (
 	Client    = NewClient(APPKEY, APPSECRET)
 )
 
-func (d *DingTalkClient) UpdateAccessToken() error {
+func (d *DingTalkClient) RefreshAkToken() error {
 	var rsp AccessTokenResponse
 	if rp, err := ValidateToken(); err == nil {
 		d.AccessToken = rp.AccessToken
@@ -58,7 +58,7 @@ func NewClient(appkey, appsecret string) *DingTalkClient {
 	dtc.BaseURI = "oapi.dingtalk.com"
 	dtc.APPKEY = appkey
 	dtc.APPSECRET = appsecret
-	err := dtc.UpdateAccessToken()
+	err := dtc.RefreshAkToken()
 	if err != nil {
 		log.Fatalf("获取access_token失败: %s", err.Error())
 	}
