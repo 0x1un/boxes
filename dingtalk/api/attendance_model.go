@@ -1,5 +1,6 @@
 package api
 
+// AttenGroup 考勤组内容
 type AttenGroup struct {
 	Result struct {
 		Name  string `json:"name"`
@@ -22,7 +23,7 @@ type AttenGroup struct {
 	Errmsg  string `json:"errmsg"`
 }
 
-// 使用gorm标签，如有特殊用途，自行修改tag
+// Schedule 使用gorm标签，如有特殊用途，自行修改tag
 type Schedule struct {
 	PlanID         int    `json:"plan_id" gorm:"column:planid"`
 	CheckType      string `json:"check_type" gorm:"column:checktype"`
@@ -36,6 +37,7 @@ type Schedule struct {
 	UserName       string `gorm:"-"`
 }
 
+// ListSchedule 考勤组列表
 type ListSchedule struct {
 	ErrResponse
 	Result struct {
@@ -45,7 +47,7 @@ type ListSchedule struct {
 	} `json:"result"`
 }
 
-// 获取考勤的班次摘要信息
+// GroupMinimalismList 获取考勤的班次摘要信息
 type GroupMinimalismList struct {
 	CreatedAt string `gorm:"column:createdat"`
 	ErrResponse
@@ -59,39 +61,39 @@ type GroupMinimalismList struct {
 	} `json:"result"`
 }
 
-// ListRecord: 打卡记录
+// ListRecord 打卡记录
 type ListRecord struct {
 	ErrResponse
 	RecordResult []struct {
 		BaseCheckTime  int64   `json:"baseCheckTime"`
-		Id             int64   `json:"id"`
+		ID             int64   `json:"id"`
 		WorkDate       int64   `json:"workDate"`
 		PlanCheckTime  int64   `json:"planCheckTime"`
-		PlanId         int64   `json:"planId"`
-		GroupId        int64   `json:"groupId"`
+		PlanID         int64   `json:"planId"`
+		GroupID        int64   `json:"groupId"`
 		UserCheckTime  int64   `json:"userCheckTime"`
 		UserLongitude  float64 `json:"userLongitude"`
 		UserAccuracy   float64 `json:"userAccuracy"`
 		UserLatitude   float64 `json:"userLatitude"`
 		IsLegal        string  `json:"isLegal"`
 		UserAddress    string  `json:"userAddress"`
-		UserId         string  `json:"userId"`
+		UserID         string  `json:"userId"`
 		CheckType      string  `json:"checkType"`
 		TimeResult     string  `json:"timeResult"`
-		DeviceId       string  `json:"deviceId"`
-		CorpId         string  `json:"corpId"`
+		DeviceID       string  `json:"deviceId"`
+		CorpID         string  `json:"corpId"`
 		SourceType     string  `json:"sourceType"`
 		LocationMethod string  `json:"locationMethod"`
 		LocationResult string  `json:"locationResult"`
-		ProcInstId     string  `json:"procInstId"`
+		ProcInstID     string  `json:"procInstId"`
 	}
 }
 
-// 考勤组摘要结构
+// AttdGroup 考勤组摘要结构
 type AttdGroup struct {
 	ErrResponse
 	Result []struct {
 		Name string `json:"Name"`
-		Id   int    `json:"id"`
+		ID   int    `json:"id"`
 	} `json:"result"`
 }

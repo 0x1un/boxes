@@ -5,10 +5,10 @@ package api
 type FormValues []FormComponentValuesVo
 
 type CreateProcessInstanceReq struct {
-	AgentId          int64  `json:"agent_id"`
+	AgentID          int64  `json:"agent_id"`
 	ProcessCode      string `json:"process_code"`
-	OriginatorUserId string `json:"originator_user_id"`
-	DeptId           int64  `json:"dept_id"`
+	OriginatorUserID string `json:"originator_user_id"`
+	DeptID           int64  `json:"dept_id"`
 	// Approvers           string                      `json:"approvers"`
 	// ApproversV2         []ProcessInstanceApproverVo `json:"approvers_v2"`
 	// CcList              string                      `json:"cc_list"`
@@ -29,7 +29,7 @@ type FormComponentValuesVo struct {
 
 type CreateProcessInstanceResp struct {
 	BaseResp
-	ProcessInstanceId string `json:"process_instance_id" gorm:"column:process_id"`
+	ProcessInstanceID string `json:"process_instance_id" gorm:"column:process_id"`
 }
 
 type BaseResp struct {

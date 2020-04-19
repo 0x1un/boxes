@@ -20,6 +20,7 @@ var (
 	Client    = NewClient(APPKEY, APPSECRET)
 )
 
+// RefreshAkToken 刷新token
 func (d *DingTalkClient) RefreshAkToken() error {
 	var rsp AccessTokenResponse
 	if rp, err := ValidateToken(); err == nil {
@@ -50,6 +51,7 @@ func (d *DingTalkClient) RefreshAkToken() error {
 	return nil
 }
 
+// NewClient 创建一个client对象
 func NewClient(appkey, appsecret string) *DingTalkClient {
 	dtc := new(DingTalkClient)
 	dtc.Client = &http.Client{
@@ -65,7 +67,7 @@ func NewClient(appkey, appsecret string) *DingTalkClient {
 	return dtc
 }
 
-// check token from local
+// ValidateToken token from local
 func ValidateToken() (*AccessTokenResponse, error) {
 	jsonstr, err := ioutil.ReadFile(".token.json")
 	if err != nil {
@@ -82,6 +84,7 @@ func ValidateToken() (*AccessTokenResponse, error) {
 	return &rsp, nil
 }
 
+// Get Http get请求
 func (d *DingTalkClient) Get(path string, params url.Values) ([]byte, error) {
 	u := &url.URL{
 		Scheme:   "https",
@@ -106,6 +109,7 @@ func (d *DingTalkClient) Get(path string, params url.Values) ([]byte, error) {
 	return text, nil
 }
 
+// Post http数据请求
 func (d *DingTalkClient) Post(path string, urlP url.Values, params misc.Data) ([]byte, error) {
 	u := &url.URL{
 		Scheme:   "https",

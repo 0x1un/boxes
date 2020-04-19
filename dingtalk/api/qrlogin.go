@@ -1,7 +1,6 @@
 package api
 
 import (
-	"github.com/0x1un/boxes/dingtalk/misc"
 	"crypto/hmac"
 	"crypto/sha256"
 	"encoding/base64"
@@ -10,6 +9,8 @@ import (
 	"fmt"
 	"net/url"
 	"time"
+
+	"github.com/0x1un/boxes/dingtalk/misc"
 )
 
 type UserInfoByCode struct {

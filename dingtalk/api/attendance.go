@@ -1,21 +1,22 @@
 package api
 
 import (
-	"github.com/0x1un/boxes/dingtalk/misc"
 	"encoding/json"
 	"errors"
 	"fmt"
 	"net/url"
 	"reflect"
 	"time"
+
+	"github.com/0x1un/boxes/dingtalk/misc"
 )
 
-// GetScheduleList: 返回size条结果, offset为偏移量, HasMore为false表示数据已完
+// GetScheduleList 返回size条结果, offset为偏移量, HasMore为false表示数据已完
 // workDate: 只取年月日部分
 // offset: 第一次为0, 之后传入offset+size
 func (c *DingTalkClient) GetScheduleList(workDate time.Time, offset, size int) (*ListSchedule, error) {
 	if size > 200 {
-		return nil, errors.New("size不能大于200!")
+		return nil, errors.New("size不能大于200")
 	}
 	wrkDate := workDate.Format("2006-01-02")
 	params := make(misc.Data)
@@ -35,10 +36,10 @@ func (c *DingTalkClient) GetScheduleList(workDate time.Time, offset, size int) (
 	return res, nil
 }
 
-// GetListRecordDetails: 获取打卡详情, 传入N个用户到数组
+// GetListRecordDetails 获取打卡详情, 传入N个用户到数组
 func (c *DingTalkClient) GetListRecordDetails(uids []string, chkDateFrom, chkDateTo string) (*ListRecord, error) {
 	if len(uids) == 0 {
-		return nil, errors.New("请传入userid!")
+		return nil, errors.New("请传入userid")
 	}
 	urlParam := make(url.Values)
 	urlParam.Set("access_token", c.AccessToken)
@@ -57,10 +58,10 @@ func (c *DingTalkClient) GetListRecordDetails(uids []string, chkDateFrom, chkDat
 	return res, nil
 }
 
-// GetListRecord: 获取打卡结果, limit <= 50, offset初始为0, 后续offset=(offset+limit)
+// GetListRecord 获取打卡结果, limit <= 50, offset初始为0, 后续offset=(offset+limit)
 func (c *DingTalkClient) GetListRecord(uids []string, workDateFrom, workDateTo string, offset, limit int) (*ListRecord, error) {
 	if len(uids) == 0 {
-		return nil, errors.New("请传入userid!")
+		return nil, errors.New("请传入userid")
 	}
 	urlParam := make(url.Values)
 	urlParam.Set("access_token", c.AccessToken)
@@ -81,22 +82,24 @@ func (c *DingTalkClient) GetListRecord(uids []string, workDateFrom, workDateTo s
 	return res, nil
 }
 
-// 获取请假时长
+// GetLeaveapproveDuration 获取请假时长
 func (c *DingTalkClient) GetLeaveapproveDuration(uid string, fromDate, toDate string) {
 
 }
 
-// 搜索考勤组摘要
-// 按考勤组名称模糊搜索，获取考勤组的摘要信息
-// opUid为操作者的userid
-func (c *DingTalkClient) GetAttendanceGroup(opUid, groupName string) (*AttdGroup, error) {
-	if opUid == "" || groupName == "" {
+/*
+GetAttendanceGroup 搜索考勤组摘要
+	按考勤组名称模糊搜索，获取考勤组的摘要信息
+	opUid为操作者的userid
+*/
+func (c *DingTalkClient) GetAttendanceGroup(opUID, groupName string) (*AttdGroup, error) {
+	if opUID == "" || groupName == "" {
 		return nil, errors.New("请传入有效的op_user_id或group name")
 	}
 	urlParam := make(url.Values)
 	urlParam.Set("access_token", c.AccessToken)
 	params := make(misc.Data)
-	params.Set("op_user_id", opUid)
+	params.Set("op_user_id", opUID)
 	params.Set("group_name", groupName)
 	data, err := Client.Post("topapi/attendance/group/search", urlParam, params)
 	if err != nil {
@@ -109,7 +112,7 @@ func (c *DingTalkClient) GetAttendanceGroup(opUid, groupName string) (*AttdGroup
 	return res, nil
 }
 
-// 根据用户id获取考勤班次摘要信息
+// GetShiftList 根据用户id获取考勤班次摘要信息
 func (c *DingTalkClient) GetShiftList(opuids string, cursor int) (*GroupMinimalismList, error) {
 	if err := checkParameter(opuids, cursor); err != nil {
 		return nil, err
@@ -130,7 +133,7 @@ func (c *DingTalkClient) GetShiftList(opuids string, cursor int) (*GroupMinimali
 	return res, nil
 }
 
-// 获取指定考勤组的详细信息
+// GetSpecShiftDetail 获取指定考勤组的详细信息
 func (c *DingTalkClient) GetSpecShiftDetail(opuid, grpName string) (*AttenGroup, error) {
 	if err := checkParameter(opuid, grpName); err != nil {
 		return nil, err
@@ -158,7 +161,7 @@ func checkParameter(args ...interface{}) error {
 	}
 	for _, v := range args {
 		if !reflect.ValueOf(v).IsValid() {
-			return errors.New(fmt.Sprintf("参数* %s *为空!", reflect.TypeOf(v).String()))
+			return fmt.Errorf("参数 %s 为空", reflect.TypeOf(v).String())
 		}
 	}
 	return nil

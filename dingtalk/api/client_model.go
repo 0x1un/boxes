@@ -7,15 +7,17 @@ import (
 	"github.com/0x1un/boxes/dingtalk/misc"
 )
 
+// 错误响应内容
 type ErrResponse struct {
 	ErrCode int    `json:"errcode"`
 	ErrMsg  string `json:"errmsg"`
 }
 
+// Response 响应的内容
 type Response struct {
 	StatusCode int
 	Text       []byte
-	Url        string
+	URL        string
 }
 
 type AccessTokenResponse struct {
