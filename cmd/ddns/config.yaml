@@ -1,0 +1,6 @@
+domain: baidu.com
+rr: pan
+recordType: A
+id: [your aliyun appid]
+secret: [your aliyun appsecret]
+regionid: cn-hangzhou
